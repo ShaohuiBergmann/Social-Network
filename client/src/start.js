@@ -1,7 +1,16 @@
 import ReactDOM from "react-dom";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("main"));
+import Welcome from "./welcome";
 
-function HelloWorld() {
-    return <div>Hello, World!</div>;
-}
+fetch("/user/id.json")
+    .then((response) => response.json())
+    .then((data) => {
+        if (!data.userId) {
+            ReactDOM.render(<Welcome />, document.querySelector("main"));
+        } else {
+            ReactDOM.render(
+                <img src="/rose.jpg" alt="logo" />,
+                document.querySelector("main")
+            );
+        }
+    });

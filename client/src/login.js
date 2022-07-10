@@ -1,7 +1,6 @@
-import { Component } from "react";
 import { Link } from "react-router-dom";
-
-export default class Registration extends Component {
+import { Component } from "react";
+export default class Login extends Component {
     constructor() {
         super();
         this.state = {
@@ -21,7 +20,7 @@ export default class Registration extends Component {
 
     handleSubmit() {
         console.log("submitting");
-        fetch("/register", {
+        fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -30,13 +29,11 @@ export default class Registration extends Component {
         })
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("data from /register", data);
-                if (data.success) {
-                    location.reload();
+                console.log("data from post/login", data);
+                if (data.error) {
+                    this.setState({ error: data.error });
                 } else {
-                    this.setState({
-                        error: true,
-                    });
+                    location.reload();
                 }
             })
             .catch((err) => {
@@ -50,26 +47,10 @@ export default class Registration extends Component {
     render() {
         return (
             <div className="container">
-                <h1>Register</h1>
+                <h1>Log in</h1>
                 {this.state.error && (
-                    <p>Something is wrong, please try again again</p>
+                    <p>Something is wrong, please try again</p>
                 )}
-                <label className="info">
-                    <span className="label-text">First Name</span>
-                    <input
-                        type="text"
-                        name="first"
-                        onChange={(e) => this.handleChange(e)}
-                    ></input>
-                </label>
-                <label className="info">
-                    <span className="label-text">Last Name</span>
-                    <input
-                        type="text"
-                        name="last"
-                        onChange={(e) => this.handleChange(e)}
-                    ></input>
-                </label>
                 <label className="info">
                     <span className="label-text">Email</span>
                     <input
@@ -80,22 +61,24 @@ export default class Registration extends Component {
                 </label>
                 <label className="password">
                     <span className="label-text">Password</span>
-                    
                     <input
                         type="password"
                         name="pwd"
                         onChange={(e) => this.handleChange(e)}
                     ></input>
                 </label>
-                <div className="text-center">
+                <div className="login">
                     <button
                         className="submit"
                         onClick={() => this.handleSubmit()}
                     >
-                        Register
+                        Log in
                     </button>
+                    <button className="submit">
+                        <Link to="/reset">Reset Your Password</Link>
+                    </button>
+                    <Link to="/">Not a member? Click here to register!</Link>
                 </div>
-                <Link to="/login">Already a member? Log in</Link>
             </div>
         );
     }

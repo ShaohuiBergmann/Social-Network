@@ -26,7 +26,7 @@ module.exports.findUser = (email) => {
 
 module.exports.insertCode = (email, code) => {
     const q = `INSERT INTO reset_codes (email, code)
-            VALUES ($1, $2,);
+            VALUES ($1, $2);
         `;
     const param = [email, code];
     return db.query(q, param);
@@ -36,7 +36,7 @@ module.exports.getCode = (email) => {
     return db.query(
         `SELECT *
         FROM reset_codes
-        WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+        WHERE CURRENT_TIMESTAMP - timestamp < INTERVAL '10 minutes'
         AND email=$1
         ORDER BY id DESC
         LIMIT 1;`,
@@ -49,6 +49,6 @@ module.exports.resetPassword = (email, password) => {
         `UPDATE users
     SET passwd = $2
     WHERE email = $1; `,
-        (email, password)
+        [email, password]
     );
 };

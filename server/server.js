@@ -92,24 +92,23 @@ app.post("/password/reset/start", (req, res) => {
         .then((results) => {
             console.log("reset", results.rows[0]);
             if (results.rows[0].email) {
-                db.insertCode(results.rows[0].email, secretCode).then(
-                    (results) => {
-                        ses.sendEmail(
-                            results.rows[0].email,
-                            `Your confirmation code is: ${secretCode} - enter it in your reset password page.`,
-                            "Reset Password"
-                        )
-                            .then(() => {
-                                res.json({ sucess: true });
-                            })
-                            .catch((err) => {
-                                console.log("err at sending email", err);
-                                res.json({
-                                    error: true,
-                                });
+                db.insertCode(results.rows[0].email, secretCode).then(() => {
+                    
+                    ses.sendEmail(
+                        results.rows[0].email,
+                        `Your confirmation code is: ${secretCode} - enter it in your reset password page.`,
+                        "Reset Password"
+                    )
+                        .then(() => {
+                            res.json({ success: true });
+                        })
+                        .catch((err) => {
+                            console.log("err at sending email", err);
+                            res.json({
+                                error: true,
                             });
-                    }
-                );
+                        });
+                });
             } else {
                 res.json({ error: true });
             }

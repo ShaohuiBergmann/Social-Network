@@ -8,6 +8,10 @@ const bcrypt = require("./bcrypt");
 const ses = require("./ses.js");
 const cryptoRandomString = require("crypto-random-string");
 
+const multer = require("multer");
+const s3 = require("./s3");
+const uidSafe = require("uid-safe");
+
 app.use(compression());
 
 const COOKIE_SECRET =
@@ -27,6 +31,24 @@ app.use(
         extended: false,
     })
 );
+
+const storage = multer.diskStorage({
+    destination(req, file, callback) {
+        callback(null, path.join(__dirname, "uploads"));
+    },
+    filename(req, file, callback) {
+        const randomFileName = uidSafe(24).then((randomString) => {
+            callback(null, randomString + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 app.post("/register", (req, res) => {
     bcrypt
@@ -84,6 +106,11 @@ app.post("/login", (req, res) => {
         });
 });
 
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
+
 app.post("/password/reset/start", (req, res) => {
     const secretCode = cryptoRandomString({
         length: 6,
@@ -93,7 +120,6 @@ app.post("/password/reset/start", (req, res) => {
             console.log("reset", results.rows[0]);
             if (results.rows[0].email) {
                 db.insertCode(results.rows[0].email, secretCode).then(() => {
-                    
                     ses.sendEmail(
                         results.rows[0].email,
                         `Your confirmation code is: ${secretCode} - enter it in your reset password page.`,
@@ -144,6 +170,29 @@ app.post("/password/reset/verify", (req, res) => {
         .catch((err) => {
             console.log("err getting code", err);
             res.json({ error: true });
+        });
+});
+
+app.get("/user", (req, res) => {
+    db.getUserInfo(req.session.userId)
+        .then((results) => {
+            res.json(results.rows[0]);
+        })
+        .catch((err) => {
+            console.log("Error at getting userinfo", err);
+        });
+});
+
+app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
+    db.updateImg(
+        "https://s3.amazonaws.com/spicedling/" + req.file.filename,
+        req.session.userId
+    )
+        .then((results) => {
+            res.json(results.rows[0]);
+        })
+        .catch((err) => {
+            console.log("there is something wrong at update image", err);
         });
 });
 

@@ -7,7 +7,7 @@
 }
 
 body {
-    background: url("/rose.jpg") center no-repeat;
+    background: url("/rose&prince.jpg") center no-repeat;
     background-size: cover;
     color: #333;
     font-size: 18px;
@@ -34,11 +34,11 @@ body {
 }
 
 .container:before {
-    background: url("/rose.jpg") center no-repeat;
+    background: url("/rose&prince.jpg") center no-repeat;
     background-size: cover;
     content: "";
     -webkit-filter: blur(10px);
-    filter: blur(10px);
+    filter: blur(5px);
     height: 100vh;
     position: absolute;
     top: 50%;
@@ -82,8 +82,6 @@ button.submit {
     color: #fff;
 }
 
-
-
 label {
     text-align: center;
     display: block;
@@ -95,7 +93,7 @@ label {
 
 label input {
     background: none;
-    border: 1px solid rgb(194, 59, 81);
+    border: 3px solid rgb(194, 59, 81);
     line-height: 1em;
     padding: 0.125em 0.25em;
     width: 100%;
@@ -139,4 +137,21 @@ html {
     flex-direction: column;
     align-items: center;
 }
+.logoContainer{
+    width: 100vw;
+    height: 200px;
+    position: relative;
+}
 
+.logoContainer img {
+    width: 100px;
+    height: 100px;
+   
+}
+
+.profile-pic {
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

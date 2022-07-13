@@ -3,10 +3,12 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./login";
 import ResetPassword from "./resetPassword";
 
+
 export default function Welcome() {
     return (
-        <div>
+        <div >
             <h1>Welcome to the rose world!</h1>
+            
             <BrowserRouter>
                 <div>
                     <Route exact path="/">

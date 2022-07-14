@@ -7,7 +7,7 @@ import ResetPassword from "./resetPassword";
 export default function Welcome() {
     return (
         <div >
-            <h1>Welcome to the rose world!</h1>
+            <h1>Welcome to the Shiba World!</h1>
             
             <BrowserRouter>
                 <div>

@@ -24,7 +24,7 @@ export default class Uploader extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="uploader">
                 <p>Upload your profile image</p>
                 <form onSubmit={(e) => this.handleUpload(e)}>
                     <input

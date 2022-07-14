@@ -196,6 +196,16 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
         });
 });
 
+app.post("/add/bio", (req, res) => {
+    db.updateBio(req.session.userId, req.body.bio)
+        .then((results) => {
+            res.json(results.rows[0]);
+        })
+        .catch((err) => {
+            console.log("there is something wrong at adding bio", err);
+        });
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

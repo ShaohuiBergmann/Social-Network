@@ -12,6 +12,7 @@ export default class App extends Component {
             last: "",
             imageUrl: "",
             uploaderIsVisible: false,
+            bio: "",
         };
     }
 
@@ -25,6 +26,8 @@ export default class App extends Component {
                     first: data.first,
                     last: data.last,
                     imageUrl: data.img_url,
+                    bio: data.bio
+                    
                 });
             })
             .catch((err) => console.log("err at /user", err));
@@ -45,26 +48,49 @@ export default class App extends Component {
         });
     }
 
+    setBioInApp(newBio) {
+        this.setState({
+            bio: newBio,
+        });
+    }
+
     render() {
         return (
-            <div className="logoContainer">
-                <Logo />
-                <ProfilePic
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                    toggleModal={() => this.toggleModal()}
-                />
-                <h2>Hi, {this.state.first}</h2>
+            <div className="loggedIn">
+                <section className="logoContainer">
+                    <Logo />
+                    <h2>Good to See You! {this.state.first} </h2>
+                    <ProfilePic
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl}
+                        toggleModal={() => this.toggleModal()}
+                    />
+                </section>
 
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         handleSubmitInApp={(url) => this.handleSubmitInApp(url)}
                     />
                 )}
-                <button>
-                    <a href="/logout">Log out</a>
-                </button>
+
+                {!this.state.uploaderIsVisible && (
+                    <Profile
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl}
+                        bio={this.state.bio}
+                        setBioInApp={(bio) => this.setBioInApp(bio)}
+                    />
+                )}
+
+                <footer>
+                    <button>
+                        <a href="/logout" className="links">
+                            Log out
+                        </a>
+                    </button>
+                </footer>
             </div>
         );
     }

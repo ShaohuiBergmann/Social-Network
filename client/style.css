@@ -7,7 +7,7 @@
 }
 
 body {
-    background: url("/rose&prince.jpg") center no-repeat;
+    background: url("/happyshiba.gif") center no-repeat;
     background-size: cover;
     color: #333;
     font-size: 18px;
@@ -15,6 +15,7 @@ body {
 }
 
 .container {
+    background: rgba(255, 255, 255, 0.55);
     border-radius: 0.5em;
     box-shadow: 0 0 1em 0 rgba(51, 51, 51, 0.25);
     display: flex;
@@ -29,50 +30,24 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 1;
+    z-index: 2;
     width: 98%;
 }
 
-.container:before {
-    background: url("/rose&prince.jpg") center no-repeat;
-    background-size: cover;
-    content: "";
-    -webkit-filter: blur(10px);
-    filter: blur(5px);
-    height: 100vh;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: -1;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    width: 100vw;
-}
-.container:after {
-    background: rgba(255, 255, 255, 0.6);
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-}
-button.submit {
+button {
     background: rgba(255, 255, 255, 0.25);
     border: 1px solid #333;
+    border-radius: 12px;
     line-height: 1em;
     padding: 0.5em 0.5em;
     -webkit-transition: all 0.25s;
     transition: all 0.25s;
 }
-.container button:hover,
-.container button:focus,
-.container button:active,
-.container button.loading {
-    background: pink;
+button:hover,
+button:focus,
+button:active,
+button.loading {
+    background: rgb(216, 141, 3);
     color: #fff;
     outline: none;
 }
@@ -93,7 +68,7 @@ label {
 
 label input {
     background: none;
-    border: 3px solid rgb(194, 59, 81);
+    border: 3px solid rgba(219, 91, 6, 0.8);
     line-height: 1em;
     padding: 0.125em 0.25em;
     width: 100%;
@@ -123,35 +98,139 @@ label.invalid span.label-text {
 
 h1 {
     font-size: 4em;
-    margin: 0.7em 0 0.5em 0;
+    margin: 0.5em 0 0.5em 0;
     text-align: center;
     font-family: "Cookie", cursive;
 }
 
 html {
-    font-size: 18px;
+    font-size: 20px;
     height: 100%;
+    font-family: "Cookie", cursive;
 }
 .login {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.logoContainer{
+.logoContainer {
+    background-color: rgba(255, 145, 0, 0.8);
     width: 100vw;
-    height: 200px;
-    position: relative;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-size: 30px;
+    font-family: "Cookie", cursive;
+}
+
+.logoContainer h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 2rem;
+}
+
+.profile h2 {
+    padding: 5px;
+    margin-top: 5px;
+    font-family: "Cookie", cursive;
+    font-size: 1.8rem;
 }
 
 .logoContainer img {
-    width: 100px;
-    height: 100px;
-   
+    margin: 20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
 }
 
 .profile-pic {
-    float: right;
+    justify-self: end;
+}
+
+.profile {
+    border-radius: 0.5em;
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 0 1em 0 rgba(51, 51, 51, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 50%;
+    max-height: 80%;
+    overflow: hidden;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 2em;
     position: absolute;
-    right: 10px;
-    top: 10px;
+    top: 55%;
+    left: 50%;
+    z-index: 1;
+    width: 98%;
+}
+.profile img {
+    max-width: 50%;
+}
+.loggedIn {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    position: absolute;
+    width: 100vw;
+    height: 5vh;
+    text-align: right;
+    background-color: rgba(255, 145, 0, 0.8);
+    bottom: 0;
+    padding: 10px;
+}
+
+.links {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 2rem;
+    color: rgba(155, 63, 2, 0.8);
+}
+
+.uploader {
+    border-radius: 0.5em;
+    background: rgba(255, 160, 0, 0.9);
+    box-shadow: 0 0 1em 0 rgba(51, 51, 51, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 40%;
+    max-height: 60%;
+    overflow: hidden;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: 98%;
+}
+textarea {
+     max-width: 80%;
+     align-self: center;
+     
+     
+}
+
+.bioInput {
+     display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 200px;
+   
+    
+}
+
+.saveBio {
+    max-width: 20%;
+    align-self: center;
 }

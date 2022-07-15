@@ -215,22 +215,53 @@ footer {
     width: 98%;
 }
 textarea {
-     max-width: 80%;
-     align-self: center;
-     
-     
+    max-width: 80%;
+    align-self: center;
 }
 
 .bioInput {
-     display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     height: 200px;
-   
-    
 }
 
 .saveBio {
     max-width: 20%;
     align-self: center;
 }
+
+.searchPeople {
+     border-radius: 0.5em;
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 0 1em 0 rgba(51, 51, 51, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 50%;
+    max-height: 80%;
+    overflow: hidden;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    z-index: 1;
+    width: 98%;
+}
+.searchPeople * {
+    margin: 3px;
+}
+.searchPeople img{
+    max-width: 50%;
+    
+    
+    
+}
+ ul {
+    list-style-type: none;
+    text-align: center;
+ }

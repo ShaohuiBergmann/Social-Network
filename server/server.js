@@ -206,6 +206,29 @@ app.post("/add/bio", (req, res) => {
         });
 });
 
+app.get("/findusers", (req, res) => {
+    db.getRecentUsers()
+        .then((results) => {
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log(
+                "there is something wrong at getting recent users",
+                err
+            );
+        });
+});
+
+app.get("/findusers/:search", (req, res) => {
+    db.searchUsers(req.params.search)
+        .then((results) => {
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log("there is something wrong at finding users", err);
+        });
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

@@ -80,3 +80,21 @@ module.exports.updateBio = (id, bio) => {
         [id, bio]
     );
 };
+
+module.exports.getRecentUsers = () => {
+    return db.query(`
+    SELECT * FROM users
+     ORDER BY id DESC
+    LIMIT 3;`);
+};
+
+module.exports.searchUsers = (val) => {
+    return db.query(
+        `SELECT * 
+        FROM users
+        WHERE first ILIKE $1
+        OR last ILIKE $1
+        LIMIT 3;`,
+        [val + "%"]
+    );
+};

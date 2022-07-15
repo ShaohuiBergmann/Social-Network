@@ -45,7 +45,7 @@ export default function FindPeople() {
                                     <img
                                         src={users.img_url || "/default.jpg"}
                                     ></img>
-                                    <h4>{users.first + users.last}</h4>
+                                    <h4>{users.first} {users.last}</h4>
                                 </Link>
                             </li>
                         );

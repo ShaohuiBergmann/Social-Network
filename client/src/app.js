@@ -5,6 +5,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindPeople from "./findPeople";
+import OtherProfile from "./otherProfile";
 
 export default class App extends Component {
     constructor() {
@@ -28,8 +29,7 @@ export default class App extends Component {
                     first: data.first,
                     last: data.last,
                     imageUrl: data.img_url,
-                    bio: data.bio
-                    
+                    bio: data.bio,
                 });
             })
             .catch((err) => console.log("err at /user", err));
@@ -95,6 +95,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/find">
                             <FindPeople />
+                        </Route>
+                        <Route path="/user/:otherUserId">
+                            <OtherProfile />
                         </Route>
                     </Switch>
                 </BrowserRouter>

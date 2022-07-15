@@ -183,6 +183,25 @@ app.get("/user", (req, res) => {
         });
 });
 
+app.get("/user/:id", (req, res) => {
+    if (req.session.userId == req.params.id) {
+        res.json({
+            selfLoggedIn: true,
+        });
+    }
+    db.getUserInfo(req.params.id)
+        .then((results) => {
+            if (results.rows[0]) {
+                res.json(results.rows[0]);
+            } else {
+                res.json({ notFound: true });
+            }
+        })
+        .catch((err) => {
+            console.log("Error at getting other userinfo", err);
+        });
+});
+
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     db.updateImg(
         "https://s3.amazonaws.com/spicedling/" + req.file.filename,

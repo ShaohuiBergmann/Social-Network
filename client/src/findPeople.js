@@ -29,7 +29,7 @@ export default function FindPeople() {
 
     return (
         <>
-            <section className="searchPeople" >
+            <section className="profile" >
                 <h3>Find Other People</h3>
                 <input
                     placeholder="Search"

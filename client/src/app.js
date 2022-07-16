@@ -71,7 +71,7 @@ export default class App extends Component {
                             toggleModal={() => this.toggleModal()}
                         />
                         <Link to="/find">Find People</Link>
-                        <Link to="/">Profile</Link>
+                        <Link to="/" className="myProfile">My Profile</Link>
                     </section>
                     <Switch>
                         <Route exact path="/">

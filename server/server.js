@@ -183,7 +183,7 @@ app.get("/user", (req, res) => {
         });
 });
 
-app.get("/user/:id", (req, res) => {
+app.get("/users/:id", (req, res) => {
     if (req.session.userId == req.params.id) {
         res.json({
             selfLoggedIn: true,
@@ -246,6 +246,60 @@ app.get("/findusers/:search", (req, res) => {
         .catch((err) => {
             console.log("there is something wrong at finding users", err);
         });
+});
+
+app.get("/friendship/:id", (req, res) => {
+    console.log("friend", req.params.id);
+    db.checkFriendship(req.session.userId, req.params.id)
+        .then((results) => {
+            console.log("at friendship", results.rows);
+            if (results.rows[0]) {
+                res.json(results.rows[0]);
+            } else {
+                res.json({ friendship: false });
+            }
+        })
+        .catch((err) => {
+            console.log("there is something wrong at checking friendship", err);
+        });
+});
+
+app.post("/friendship/:id/:action", (req, res) => {
+    if (req.params.action === "add") {
+        console.log("adding friends");
+        db.addFriendship(req.session.userId, req.params.id)
+            .then(() => {
+                res.json({ success: true });
+            })
+            .catch((err) => {
+                console.log(
+                    "there is something wrong at adding friendship",
+                    err
+                );
+            });
+    } else if (req.params.action === "end" || req.params.action === "cancel") {
+        db.deleteFriendship(req.session.userId, req.params.id)
+            .then(() => {
+                res.json({ success: true });
+            })
+            .catch((err) => {
+                console.log(
+                    "there is something wrong at canceling friendship",
+                    err
+                );
+            });
+    } else {
+        db.acceptFriendship(req.session.userId, req.params.id)
+            .then(() => {
+                res.json({ success: true });
+            })
+            .catch((err) => {
+                console.log(
+                    "there is something wrong at accepting friendship",
+                    err
+                );
+            });
+    }
 });
 
 app.get("*", function (req, res) {

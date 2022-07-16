@@ -98,3 +98,40 @@ module.exports.searchUsers = (val) => {
         [val + "%"]
     );
 };
+
+module.exports.checkFriendship = (id, otherId) => {
+    return db.query(
+        `SELECT * FROM friendships 
+        WHERE (recipient_id = $1 AND sender_id = $2) 
+        OR (recipient_id = $2 AND sender_id = $1);`,
+        [id, otherId]
+    );
+};
+
+module.exports.addFriendship = (id, otherId) => {
+    return db.query(
+        `INSERT INTO friendships (sender_id, recipient_id)
+        VALUES ( $1, $2);
+        `,
+        [id, otherId]
+    );
+};
+
+module.exports.acceptFriendship = (id, otherId) => {
+    return db.query(
+        `UPDATE friendships
+    SET accepted = true
+    WHERE (recipient_id = $1 AND sender_id = $2) 
+    ;`,
+        [id, otherId]
+    );
+};
+
+module.exports.deleteFriendship = (id, otherId) => {
+    return db.query(
+        `DELETE FROM friendships
+        WHERE (recipient_id = $1 AND sender_id = $2) 
+        OR (recipient_id = $2 AND sender_id = $1);`,
+        [id, otherId]
+    );
+};

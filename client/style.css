@@ -121,6 +121,13 @@ html {
     font-size: 30px;
     font-family: "Cookie", cursive;
 }
+.myProfile{
+    grid-column-start: 3;
+  grid-column-end: 4;
+  justify-self: end;
+
+
+}
 
 .logoContainer h2 {
     text-align: center;
@@ -264,4 +271,8 @@ textarea {
  ul {
     list-style-type: none;
     text-align: center;
+ }
+
+ .profile * {
+    margin: 10px;
  }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
+import FriendButton from "./friendButton";
 
 export default function OtherProfile() {
     const [user, setUser] = useState({});
@@ -10,7 +11,7 @@ export default function OtherProfile() {
         if (!abort) {
             (async () => {
                 try {
-                    const respBody = await fetch("/user/" + otherUserId);
+                    const respBody = await fetch("/users/" + otherUserId);
                     const data = await respBody.json();
                     if (data.selfLoggedIn) {
                         history.push("/");
@@ -32,11 +33,11 @@ export default function OtherProfile() {
     }, []);
     return (
         <>
-            <section className="otherProfile">
+            <section className="profile">
                 {(user && (
-                    <h1>
+                    <h2>
                         {user.first} {user.last}
-                    </h1>
+                    </h2>
                 )) || <h1>User Not Found</h1>}
 
                 {user && (
@@ -44,12 +45,14 @@ export default function OtherProfile() {
                 )}
 
                 {(user && user.bio && (
-                    <p>Bio: {user.bio}</p>
+                    <h3>Bio: {user.bio}</h3>
                 )) || (
                     user && (
                         <p>No bio yet</p>
                     )
                 )}
+
+                <FriendButton otherUserId={otherUserId}/>
             </section>
         </>
     );

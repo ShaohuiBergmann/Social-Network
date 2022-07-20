@@ -302,6 +302,40 @@ app.post("/friendship/:id/:action", (req, res) => {
     }
 });
 
+///////////part 9 redux routers/////////////
+app.get("/friends-wannabes", (req, res) => {
+    db.getFriendsAndWannabes(req.session.userId)
+        .then((results) => {
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log("there is something wrong at getting F&B", err);
+        });
+});
+
+app.post("/accept-friend/:id", (req, res) => {
+    db.acceptFriendship(req.session.userId, req.params.id)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("there is something wrong at /accept-friend", err);
+        });
+});
+
+app.post("/unfriend/:id", (req, res) => {
+    db.deleteFriendship(req.session.userId, req.params.id)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log(
+                "there is something wrong at /unfriend",
+                err
+            );
+        });
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

@@ -135,3 +135,16 @@ module.exports.deleteFriendship = (id, otherId) => {
         [id, otherId]
     );
 };
+
+module.exports.getFriendsAndWannabes = (id) => {
+    return db.query(
+        `SELECT users.id, users.first, users.last, users.img_url, friendships.accepted
+FROM friendships
+JOIN users
+ON (accepted = false AND recipient_id = $1 AND sender_id  = users.id)
+OR (accepted = true AND recipient_id = $1 AND sender_id  = users.id)
+OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+;`,
+        [id]
+    );
+};

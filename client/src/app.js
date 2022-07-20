@@ -6,6 +6,7 @@ import Profile from "./profile";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindPeople from "./findPeople";
 import OtherProfile from "./otherProfile";
+import FriendsAndWannaBe from "./friends-wannabe";
 
 export default class App extends Component {
     constructor() {
@@ -71,7 +72,10 @@ export default class App extends Component {
                             toggleModal={() => this.toggleModal()}
                         />
                         <Link to="/find">Find People</Link>
-                        <Link to="/" className="myProfile">My Profile</Link>
+                        <Link to="/" className="myProfile">
+                            My Profile
+                        </Link>
+                        <Link to="/friends">Friends</Link>
                     </section>
                     <Switch>
                         <Route exact path="/">
@@ -98,6 +102,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/user/:otherUserId">
                             <OtherProfile />
+                        </Route>
+                        <Route path="/friends">
+                            <FriendsAndWannaBe />
                         </Route>
                     </Switch>
                 </BrowserRouter>

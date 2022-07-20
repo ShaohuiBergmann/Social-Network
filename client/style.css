@@ -226,7 +226,7 @@ textarea {
     align-self: center;
 }
 
-.bioInput {
+.bioInput{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -276,3 +276,26 @@ textarea {
  .profile * {
     margin: 10px;
  }
+
+ .friends, .wannabes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 30%;
+    align-items: center;
+    margin: 20px;
+ }
+
+
+ .fandb {
+     width: 100vw;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr;
+   
+ }
+
+ .fandb img {
+    width: 150px;
+    height: 200px;
+ }
+ 

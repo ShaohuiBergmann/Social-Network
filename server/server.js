@@ -329,10 +329,7 @@ app.post("/unfriend/:id", (req, res) => {
             res.json({ success: true });
         })
         .catch((err) => {
-            console.log(
-                "there is something wrong at /unfriend",
-                err
-            );
+            console.log("there is something wrong at /unfriend", err);
         });
 });
 

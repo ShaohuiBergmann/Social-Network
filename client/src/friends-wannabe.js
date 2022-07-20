@@ -4,7 +4,7 @@ import {
     makeFriend,
     receivedFriend,
     makeUnfriend,
-} from "./redux/friends/slice";
+} from "./redux/Friends/slice";
 
 export default function FriendsAndWannaBe() {
     const dispatch = useDispatch();
@@ -14,7 +14,6 @@ export default function FriendsAndWannaBe() {
     const friends = useSelector((state) => {
         return state.friends.filter((friend) => friend.accepted);
     });
-   
 
     useEffect(() => {
         fetch("/friends-wannabes")
@@ -55,37 +54,40 @@ export default function FriendsAndWannaBe() {
     };
 
     return (
-        <section>
+        <section className="fandb">
             <h1>friends </h1>
-            {friends ? (
-                friends.map((friend) => {
-                    return (
-                        <div key={friend.id} className="friends">
-                            <img src={friend.img_url || "default.jpg"} />
-                            <button
-                                key={friend.id}
-                                onClick={() => handleUnfriend(friend.id)}
-                            >
-                                Unfriend
-                            </button>
-                        </div>
-                    );
-                })) : ("Sorry, you have no more friends")};
+            {friends
+                ? friends.map((friend) => {
+                      return (
+                          <div key={friend.id} className="friends">
+                              <img src={friend.img_url || "default.jpg"} />
+                              <button
+                                  key={friend.id}
+                                  onClick={() => handleUnfriend(friend.id)}
+                              >
+                                  Unfriend
+                              </button>
+                          </div>
+                      );
+                  })
+                : "Sorry, you have no more friends"}
+            ;
             <h1>wannabes</h1>
-            {wannabes ? (
-                wannabes.map((wannabe) => {
-                    return (
-                        <div key={wannabe.id} className="wannabes">
-                            <img src={wannabe.img_url ||"default.jpg"} />
-                            <button
-                                key={wannabe.id}
-                                onClick={() => handleAccept(wannabe.id)}
-                            >
-                                Accept Friendship
-                            </button>
-                        </div>
-                    );
-                })) : ("You have no new friends request")}
+            {wannabes
+                ? wannabes.map((wannabe) => {
+                      return (
+                          <div key={wannabe.id} className="wannabes">
+                              <img src={wannabe.img_url || "default.jpg"} />
+                              <button
+                                  key={wannabe.id}
+                                  onClick={() => handleAccept(wannabe.id)}
+                              >
+                                  Accept Friendship
+                              </button>
+                          </div>
+                      );
+                  })
+                : "You have no new friends request"}
         </section>
     );
 }

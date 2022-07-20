@@ -2,7 +2,8 @@
 
 export default function friendsWannaBeReducer(friends = [], action) {
     //friends is a property inside glaobal state, we're using default params here
-    if (action.type === "friends-wannabees/accept") {
+    if (action.type === "/friends-wannabees/accept") {
+        
         const newFriendsWannabes = friends.map((friend) => {
             if (friend.id == action.payload.id) {
                 return {

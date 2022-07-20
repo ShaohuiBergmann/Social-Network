@@ -208,7 +208,7 @@ footer {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    max-width: 40%;
+    max-width: 50%;
     max-height: 60%;
     overflow: hidden;
     -webkit-transform: translate(-50%, -50%);
@@ -219,7 +219,7 @@ footer {
     top: 50%;
     left: 50%;
     z-index: 2;
-    width: 98%;
+    
 }
 textarea {
     max-width: 80%;
@@ -331,4 +331,11 @@ nav * {
     font-size: larger;
     font-weight: bold;
      color: rgba(155, 63, 2, 0.8);
+}
+.close {
+    width: 50px;
+    font-size: 40px;
+    height: 25px;
+    align-self: flex-end;
+    
 }

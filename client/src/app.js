@@ -16,6 +16,7 @@ export default class App extends Component {
             last: "",
             imageUrl: "",
             uploaderIsVisible: false,
+            findPeopleIsVisibile: false,
             bio: "",
         };
     }
@@ -73,7 +74,7 @@ export default class App extends Component {
                         />
                     </div>
                     <nav>
-                        <Link to="/find" >Find People</Link>
+                        <Link to="/find">Find People</Link>
                         <Link to="/" className="myProfile">
                             My Profile
                         </Link>

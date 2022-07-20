@@ -61,7 +61,7 @@ export default class App extends Component {
         return (
             <div className="loggedIn">
                 <BrowserRouter>
-                    <section className="logoContainer">
+                    <div className="logoContainer">
                         <Logo />
                         <h2>Good to See You! {this.state.first} </h2>
 
@@ -71,12 +71,15 @@ export default class App extends Component {
                             imageUrl={this.state.imageUrl}
                             toggleModal={() => this.toggleModal()}
                         />
-                        <Link to="/find">Find People</Link>
+                    </div>
+                    <nav>
+                        <Link to="/find" >Find People</Link>
                         <Link to="/" className="myProfile">
                             My Profile
                         </Link>
                         <Link to="/friends">Friends</Link>
-                    </section>
+                    </nav>
+
                     <Switch>
                         <Route exact path="/">
                             {this.state.uploaderIsVisible && (

@@ -55,39 +55,43 @@ export default function FriendsAndWannaBe() {
 
     return (
         <section className="fandb">
-            <h1>friends </h1>
-            {friends
-                ? friends.map((friend) => {
-                      return (
-                          <div key={friend.id} className="friends">
-                              <img src={friend.img_url || "default.jpg"} />
-                              <button
-                                  key={friend.id}
-                                  onClick={() => handleUnfriend(friend.id)}
-                              >
-                                  Unfriend
-                              </button>
-                          </div>
-                      );
-                  })
-                : "Sorry, you have no more friends"}
-            ;
-            <h1>wannabes</h1>
-            {wannabes
-                ? wannabes.map((wannabe) => {
-                      return (
-                          <div key={wannabe.id} className="wannabes">
-                              <img src={wannabe.img_url || "default.jpg"} />
-                              <button
-                                  key={wannabe.id}
-                                  onClick={() => handleAccept(wannabe.id)}
-                              >
-                                  Accept Friendship
-                              </button>
-                          </div>
-                      );
-                  })
-                : "You have no new friends request"}
+            <h1>Friends </h1>
+            <div className="friendsContainer">
+                {friends
+                    ? friends.map((friend) => {
+                          return (
+                              <div key={friend.id} className="friends">
+                                  <img src={friend.img_url || "default.jpg"} />
+                                  <button
+                                      key={friend.id}
+                                      onClick={() => handleUnfriend(friend.id)}
+                                  >
+                                      Unfriend
+                                  </button>
+                              </div>
+                          );
+                      })
+                    : "Sorry, you have no more friends"}
+            </div>
+
+            <h1>Wannabes</h1>
+            <div className="friendsContainer">
+                {wannabes
+                    ? wannabes.map((wannabe) => {
+                          return (
+                              <div key={wannabe.id} className="wannabes">
+                                  <img src={wannabe.img_url || "default.jpg"} />
+                                  <button
+                                      key={wannabe.id}
+                                      onClick={() => handleAccept(wannabe.id)}
+                                  >
+                                      Accept Friendship
+                                  </button>
+                              </div>
+                          );
+                      })
+                    : "You have no new friends request"}
+            </div>
         </section>
     );
 }

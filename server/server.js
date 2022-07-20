@@ -7,6 +7,11 @@ const cookieSession = require("cookie-session");
 const bcrypt = require("./bcrypt");
 const ses = require("./ses.js");
 const cryptoRandomString = require("crypto-random-string");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
 
 const multer = require("multer");
 const s3 = require("./s3");
@@ -337,6 +342,6 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });

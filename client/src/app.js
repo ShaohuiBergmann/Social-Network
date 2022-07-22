@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindPeople from "./findPeople";
 import OtherProfile from "./otherProfile";
 import FriendsAndWannaBe from "./friends-wannabe";
+import Chat from "./chat";
 
 export default class App extends Component {
     constructor() {
@@ -79,6 +80,7 @@ export default class App extends Component {
                             My Profile
                         </Link>
                         <Link to="/friends">Friends</Link>
+                        <Link to="/chat">My Chat</Link>
                     </nav>
 
                     <Switch>
@@ -109,6 +111,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/friends">
                             <FriendsAndWannaBe />
+                        </Route>
+                        <Route path="/chat">
+                            <Chat />
                         </Route>
                     </Switch>
                 </BrowserRouter>

@@ -21,13 +21,17 @@ app.use(compression());
 
 const COOKIE_SECRET =
     process.env.COOKIE_SECRET || require("./secrets.json").COOKIE_SECRET;
-app.use(
-    cookieSession({
-        secret: COOKIE_SECRET,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-        sameSite: true,
-    })
-);
+
+const cookieSessionMiddleware = cookieSession({
+    secret: COOKIE_SECRET,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    sameSite: true,
+});
+
+io.use((socket, next) => {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+app.use(cookieSessionMiddleware);
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
@@ -254,10 +258,8 @@ app.get("/findusers/:search", (req, res) => {
 });
 
 app.get("/friendship/:id", (req, res) => {
-    console.log("friend", req.params.id);
     db.checkFriendship(req.session.userId, req.params.id)
         .then((results) => {
-            console.log("at friendship", results.rows);
             if (results.rows[0]) {
                 res.json(results.rows[0]);
             } else {
@@ -271,7 +273,6 @@ app.get("/friendship/:id", (req, res) => {
 
 app.post("/friendship/:id/:action", (req, res) => {
     if (req.params.action === "add") {
-        console.log("adding friends");
         db.addFriendship(req.session.userId, req.params.id)
             .then(() => {
                 res.json({ success: true });
@@ -344,4 +345,51 @@ app.get("*", function (req, res) {
 
 server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+    ///because socket can not use an express server we need to have the litening to be done
+});
+
+io.on("connection", function (socket) {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    const userId = socket.request.session.userId;
+    console.log(
+        `User with id: ${userId} and socket.id ${socket.id}, just connected`
+    );
+
+    db.receiveChats()
+        .then((results) => {
+            const messages = results.rows;
+            console.log("messages", messages);
+            socket.emit("last-10-messages", {
+                messages: messages,
+            });
+        })
+        .catch((err) => {
+            console.log("err at receiveChats", err);
+        });
+
+    socket.on("new-message", (newMsg) => {
+        console.log("received new messages", newMsg);
+        console.log("autor of the msg was user with id", userId);
+        db.addChats(userId, newMsg).then((results) => {
+            const newMsg = results.rows[0];
+            db.getUserInfo(userId)
+                .then((results) => {
+                    console.log("new user", results);
+                    const newUser = results.rows[0];
+                    const composedMsgs = {
+                        id: newMsg.id,
+                        first: newUser.first,
+                        last: newUser.last,
+                        imgUrl: newUser.img_url,
+                        message: newMsg.message,
+                        sender_id: newMsg.sender_id,
+                    };
+                    io.emit("add-new-message", composedMsgs);
+                })
+                .catch((err) => console.log("err at new-message", err));
+        });
+    });
 });

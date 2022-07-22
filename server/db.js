@@ -148,3 +148,22 @@ OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
         [id]
     );
 };
+
+module.exports.addChats = (id, message) => {
+    return db.query(
+        `INSERT INTO chats (sender_id, message)
+        VALUES ($1, $2)
+        RETURNING *;`,
+        [id, message]
+    );
+};
+
+module.exports.receiveChats = () => {
+    return db.query(
+        `SELECT chats.id, chats.sender_id, chats.message, chats.timestamp, users.first, users.last, users.img_url
+        FROM chats 
+        LEFT JOIN users ON sender_id = users.id
+        ORDER BY chats.id DESC
+        LIMIT 10;`
+    );
+};

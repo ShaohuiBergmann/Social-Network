@@ -73,8 +73,7 @@ export default class Bio extends Component {
                 )) ||
                     (this.props.bio && (
                         <section className="bioInput">
-                            <label>Bio</label>
-                            <h2>{this.props.bio}</h2>
+                            <h2>Bio: {this.props.bio}</h2>
                             <button
                                 className="submit"
                                 onClick={() => {

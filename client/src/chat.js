@@ -28,19 +28,22 @@ export default function Chat() {
             e.target.value = "";
         }
     };
-    console.log("messages in chat ", messages);
+  
     return (
         <>
             <section className="profile">
-                <h3> We are Chatting</h3>
+                <h2> We are Chatting</h2>
                 <div className="chat-display-container" ref={chatContainerRef}>
                     {messages &&
                         messages.map((message) => {
                             return (
-                                <p key={message.id}>
-                                    {message.first} {message.last} says:
-                                    {message.message}
-                                </p>
+                                <section key={message.id} className="chat">
+                                    <img src={message.img_url}></img>
+                                    <p key={message.id}>
+                                        {message.first} {message.last} says:
+                                        {message.message}
+                                    </p>
+                                </section>
                             );
                         })}
                 </div>

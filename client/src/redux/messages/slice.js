@@ -4,7 +4,7 @@ export default function messageReducer(messages = [], action) {
     }
 
     if (action.type == "messages/added") {
-        messages = [...messages, action.payload.messages];
+        messages = [ action.payload.messages, ...messages];
     }
     return messages;
 }

@@ -361,7 +361,6 @@ io.on("connection", function (socket) {
     db.receiveChats()
         .then((results) => {
             const messages = results.rows;
-            console.log("messages", messages);
             socket.emit("last-10-messages", {
                 messages: messages,
             });
@@ -371,8 +370,6 @@ io.on("connection", function (socket) {
         });
 
     socket.on("new-message", (newMsg) => {
-        console.log("received new messages", newMsg);
-        console.log("autor of the msg was user with id", userId);
         db.addChats(userId, newMsg).then((results) => {
             const newMsg = results.rows[0];
             db.getUserInfo(userId)
@@ -383,7 +380,7 @@ io.on("connection", function (socket) {
                         id: newMsg.id,
                         first: newUser.first,
                         last: newUser.last,
-                        imgUrl: newUser.img_url,
+                        img_url: newUser.img_url,
                         message: newMsg.message,
                         sender_id: newMsg.sender_id,
                     };

@@ -1,19 +1,15 @@
-# Social-Network
+# Overview
 An old-school social networking platform developed using react.
 
 ## Features
 
 -   Application has a top navigation that allows the user to navigate to:
-    -   Personal profile
+    -   Personal profile, where contains profile picture that users can update, a bio section.
     -   Page to view their list of friends, as well as other users who have requested their friendship.      
     -   Page to view latest users and search for a specific user.
-    -   Page that contains the various live chat rooms.
+    -   A live chat room where all the users can chat with everybody.
     -   Link that will enable the user to log out.
--   In the personal profile, the user can upload a profile picture as well as add a small biography. User's current friends are displayed in a component.
--   In the live chat component, users have different options:
-    - Talk to everyone, in a common chat room.
-    - Talk to a specific user on a channel only available for the two parties. 
-    - Use their own channel as a note keeper space. 
+
 
 
 ##  Technology
